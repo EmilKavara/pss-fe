@@ -1,0 +1,93 @@
+/* General styles for the signup container */
+div {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* Heading styles */
+h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Form field labels */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+/* Form input fields */
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+/* Submit button */
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #4caf50;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+/* Error message */
+div[style*='color: red;'] {
+  font-size: 14px;
+  color: #e74c3c;
+  margin-top: -10px;
+  margin-bottom: 15px;
+}
+
+/* Success message container */
+div[ngIf='signupSuccess'] {
+  text-align: center;
+  background-color: #dff0d8;
+  border: 1px solid #d6e9c6;
+  color: #3c763d;
+  padding: 15px;
+  border-radius: 4px;
+}
+
+div[ngIf='signupSuccess'] p {
+  font-size: 16px;
+  margin: 10px 0;
+}
+
+div[ngIf='signupSuccess'] strong {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+/* Proceed button in success message */
+div[ngIf='signupSuccess'] button {
+  margin-top: 10px;
+  background-color: #007bff;
+  color: white;
+}
+
+div[ngIf='signupSuccess'] button:hover {
+  background-color: #0056b3;
+}

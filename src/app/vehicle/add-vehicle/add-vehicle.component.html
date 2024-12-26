@@ -1,0 +1,35 @@
+<div>
+  <h2>Add Vehicle</h2>
+  <form [formGroup]="vehicleForm" (ngSubmit)="onAddVehicle()">
+    <label for="make">Make:</label>
+    <input id="make" formControlName="make" />
+    <div *ngIf="vehicleForm.controls['make'].invalid && vehicleForm.controls['make'].touched">
+      Vehicle make is required.
+    </div>
+    <br />
+
+    <label for="model">Model:</label>
+    <input id="model" formControlName="model" />
+    <div *ngIf="vehicleForm.controls['model'].invalid && vehicleForm.controls['model'].touched">
+      Vehicle model is required.
+    </div>
+    <br />
+
+    <label for="seats">Number of Seats:</label>
+    <input id="seats" formControlName="seats" type="number" />
+    <div *ngIf="vehicleForm.controls['seats'].invalid && vehicleForm.controls['seats'].touched">
+      Number of seats must be at least 1.
+    </div>
+    <br />
+
+     <!-- New License Plate Field -->
+     <label for="licensePlate">License Plate:</label>
+     <input id="licensePlate" formControlName="licensePlate" />
+     <div *ngIf="vehicleForm.controls['licensePlate'].invalid && vehicleForm.controls['licensePlate'].touched">
+       License plate is required and should be unique.
+     </div>
+     <br />
+
+    <button type="submit" [disabled]="vehicleForm.invalid">Add Vehicle</button>
+  </form>
+</div>

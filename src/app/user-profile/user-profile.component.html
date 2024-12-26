@@ -1,0 +1,76 @@
+<div *ngIf="user" class="user-profile-container">
+    <h2 class="profile-heading">User Profile</h2>
+    <div class="profile-details">
+      <p><strong>Full Name:</strong> {{ user.fullName }}</p>
+      <p><strong>Email:</strong> {{ user.email }}</p>
+      <p><strong>Role:</strong> {{ user.role }}</p>
+    </div>
+  
+    <!-- Manage Vehicles button for drivers -->
+    <div *ngIf="user.role === 'Driver'" class="manage-vehicles">
+      <button class="btn btn-primary" (click)="manageVehicles()">Manage Vehicles</button>
+    </div>
+  
+    <!-- Edit button -->
+    <button class="btn btn-secondary" (click)="startEditing()">Edit Profile</button>
+  
+    <!-- Ride History table -->
+    <div class="ride-history">
+      <h3>Ride History</h3>
+      <table class="ride-history-table">
+        <thead>
+          <tr>
+            <th>Ride ID</th>
+            <th>Start Location</th>
+            <th>Destination</th>
+            <th>Departure Time</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ride of user.rideHistory">
+            <td>{{ ride.rideId }}</td>
+            <td>{{ ride.startLocation }}</td>
+            <td>{{ ride.destination }}</td>
+            <td>{{ ride.departureTime }}</td>
+            <td>{{ ride.status }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+  <!-- Edit Profile Modal -->
+  <div *ngIf="isEditing" class="modal">
+    <div class="modal-content">
+      <h2>Edit Profile</h2>
+      <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="edit-form">
+        <label for="fullName">Full Name:</label>
+        <input id="fullName" formControlName="fullName" type="text" />
+        <div *ngIf="profileForm.get('fullName')?.invalid && profileForm.get('fullName')?.touched">
+          <small class="error">Full name is required</small>
+        </div>
+  
+        <label for="email">Email:</label>
+        <input id="email" formControlName="email" type="email" />
+        <div *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched">
+          <small class="error">Valid email is required</small>
+        </div>
+  
+        <label for="role">Role:</label>
+        <select id="role" formControlName="role">
+          <option value="Passenger">Passenger</option>
+          <option value="Driver">Driver</option>
+        </select>
+        <div *ngIf="profileForm.get('role')?.invalid && profileForm.get('role')?.touched">
+          <small class="error">Select a valid role</small>
+        </div>
+  
+        <div class="modal-actions">
+          <button type="submit" [disabled]="profileForm.invalid" class="btn btn-primary">Save Changes</button>
+          <button type="button" (click)="cancelEditing()" class="btn btn-secondary">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  

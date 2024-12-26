@@ -1,0 +1,43 @@
+<div>
+  <h2>Sign Up</h2>
+
+  <!-- Show success message if signup is successful -->
+  <div *ngIf="signupSuccess">
+    <p>Signup successful! Your username is: <strong>{{ generatedUsername }}</strong></p>
+    <button (click)="goToLogin()">Proceed to Login</button>
+  </div>
+
+  <!-- Show form only if signup is not successful -->
+  <form *ngIf="!signupSuccess" [formGroup]="signupForm" (ngSubmit)="onSignup()">
+    <label for="fullName">Full Name:</label>
+    <input id="fullName" formControlName="fullName" />
+    <div *ngIf="signupForm.controls['fullName'].invalid && signupForm.controls['fullName'].touched">
+      Full name is required.
+    </div>
+    <br />
+
+    <label for="email">Email:</label>
+    <input id="email" formControlName="email" type="email" />
+    <div *ngIf="signupForm.controls['email'].invalid && signupForm.controls['email'].touched">
+      Please enter a valid email.
+    </div>
+    <br />
+
+    <label for="password">Password:</label>
+    <input id="password" formControlName="password" type="password" />
+    <div *ngIf="signupForm.controls['password'].invalid && signupForm.controls['password'].touched">
+      Password must be at least 6 characters long.
+    </div>
+    <br />
+
+    <label for="role">Role:</label>
+    <select id="role" formControlName="role">
+      <option value="DRIVER">Driver</option>
+      <option value="PASSENGER">Passenger</option>
+    </select>
+    <br />
+
+    <button type="submit" [disabled]="signupForm.invalid">Sign Up</button>
+    <div *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</div>
+  </form>
+</div>

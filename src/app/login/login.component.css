@@ -1,0 +1,42 @@
+.login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+  .error-message {
+    font-weight: bold;   /* Make text bold */
+    font-size: 1.2em;     /* Make the text slightly bigger */
+    color: red;           /* Optional: Change the text color to red */
+    margin-top: 10px;      /* Optional: Add space above the error message */
+    text-align: center;
+  }
+  
+  
