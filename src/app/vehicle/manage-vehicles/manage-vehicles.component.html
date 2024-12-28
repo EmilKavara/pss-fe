@@ -21,7 +21,7 @@
             <td>{{ vehicle.seats }}</td>
             <td>
               <button class="btn btn-secondary" (click)="editVehicle(vehicle)">Edit</button>
-              <button class="btn btn-danger" (click)="deleteVehicle(vehicle.id)">Delete</button>
+              <button class="btn btn-danger" (click)="deleteVehicle(vehicle.vehicleId)">Delete</button>
             </td>
           </tr>
         </tbody>
@@ -40,11 +40,6 @@
       <div class="modal-content">
         <h2>{{ isEditing ? 'Edit Vehicle' : 'Add Vehicle' }}</h2>
         <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()">
-          <label for="name">Vehicle Name:</label>
-          <input id="name" formControlName="name" type="text" />
-          <div *ngIf="vehicleForm.get('name')?.invalid && vehicleForm.get('name')?.touched">
-            <small class="error">Vehicle name is required</small>
-          </div>
   
           <label for="make">Make:</label>
           <input id="make" formControlName="make" type="text" />
@@ -63,6 +58,12 @@
           <div *ngIf="vehicleForm.get('seats')?.invalid && vehicleForm.get('seats')?.touched">
             <small class="error">Number of seats must be at least 1</small>
           </div>
+
+          <label for="licensePlate">License Plate:</label>
+          <input id="licensePlate" formControlName="licensePlate" type="text" />
+          <div *ngIf="vehicleForm.get('licensePlate')?.invalid && vehicleForm.get('licensePlate')?.touched">
+            <small class="error">License plate is required</small>
+          </div>
   
           <div class="modal-actions">
             <button type="submit" [disabled]="vehicleForm.invalid" class="btn btn-primary">Save</button>
@@ -71,5 +72,4 @@
         </form>
       </div>
     </div>
-  </div>
-  
+</div>

@@ -8,6 +8,7 @@ import { AddVehicleComponent } from './vehicle/add-vehicle/add-vehicle.component
 import { DriverDashboardComponent } from './driver-dashboard/driver-dashboard.component';
 import { PassengerDashboardComponent } from './passenger-dashboard/passenger-dashboard.component';
 import { ManageVehiclesComponent } from './vehicle/manage-vehicles/manage-vehicles.component';
+import { RidesPageComponent } from './rides/rides-page/rides-page.component';
 
 export const routes: Routes = [
   {
@@ -52,6 +53,11 @@ export const routes: Routes = [
     path: 'manage-vehicles', // Add the profile route
     component: ManageVehiclesComponent,
     canActivate: [AuthGuard], // Optionally, you can use the AuthGuard here too
+  },
+  { 
+    path: 'rides-page', 
+    component: RidesPageComponent ,
+    canActivate: [AuthGuard],
   },
 ];
 

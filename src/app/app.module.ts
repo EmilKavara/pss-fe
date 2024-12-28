@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { CommonModule } from '@angular/common'; 
 import { FormsModule } from '@angular/forms';  // For ngModel
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent],
@@ -16,6 +17,7 @@ import { FormsModule } from '@angular/forms';  // For ngModel
     HttpClientModule,
     CommonModule,
     FormsModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

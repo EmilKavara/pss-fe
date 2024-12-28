@@ -1,0 +1,23 @@
+<div>
+  <mat-tab-group>
+    <mat-tab label="All">
+      <app-rides-list [rides]="allRides"></app-rides-list>
+    </mat-tab>
+    <mat-tab label="Active">
+      <app-rides-list
+        [rides]="activeRides"
+        (onCancelRide)="cancelRide($event)"
+        (onReportDelay)="openDelayDialog($event)"
+      ></app-rides-list>
+    </mat-tab>
+    <mat-tab label="Finished">
+      <app-rides-list [rides]="finishedRides"></app-rides-list>
+    </mat-tab>
+    <mat-tab label="Requests">
+      <app-requests-list
+        [requests]="requests"
+        (onHandleRequest)="handleRequest($event)"
+      ></app-requests-list>
+    </mat-tab>
+  </mat-tab-group>
+</div>
