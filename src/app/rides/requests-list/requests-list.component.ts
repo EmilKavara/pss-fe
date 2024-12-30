@@ -3,7 +3,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { CommonModule } from '@angular/common';
-import { RequestDTO } from '../rides-page/RequestDTO';
+import { RequestDTO } from '../rides.model';
 
 @Component({
   selector: 'app-requests-list',

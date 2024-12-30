@@ -6,15 +6,12 @@
       <p><strong>Role:</strong> {{ user.role }}</p>
     </div>
   
-    <!-- Manage Vehicles button for drivers -->
     <div *ngIf="user.role === 'Driver'" class="manage-vehicles">
       <button class="btn btn-primary" (click)="manageVehicles()">Manage Vehicles</button>
     </div>
   
-    <!-- Edit button -->
     <button class="btn btn-secondary" (click)="startEditing()">Edit Profile</button>
   
-    <!-- Ride History table -->
     <div class="ride-history">
       <h3>Ride History</h3>
       <table class="ride-history-table">
@@ -30,7 +27,7 @@
         <tbody>
           <tr *ngFor="let ride of user.rideHistory">
             <td>{{ ride.rideId }}</td>
-            <td>{{ ride.startLocation }}</td>
+            <td>{{ ride.origin }}</td>
             <td>{{ ride.destination }}</td>
             <td>{{ ride.departureTime }}</td>
             <td>{{ ride.status }}</td>
@@ -40,7 +37,6 @@
     </div>
   </div>
   
-  <!-- Edit Profile Modal -->
   <div *ngIf="isEditing" class="modal">
     <div class="modal-content">
       <h2>Edit Profile</h2>

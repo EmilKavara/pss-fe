@@ -7,7 +7,7 @@ import { RequestsListComponent } from '../requests-list/requests-list.component'
 import { RidesListComponent } from '../rides-list/rides-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
-import { RideDTO } from './RideStatusDTO';
+import { RideDTO } from '../rides.model';
 
 @Component({
   selector: 'app-rides-page',
@@ -23,10 +23,11 @@ import { RideDTO } from './RideStatusDTO';
   styleUrls: ['./rides-page.component.css']
 })
 export class RidesPageComponent implements OnInit {
-  allRides: RideDTO[] = []; // Skladišti sve vožnje
-  activeRides: RideDTO[] = []; // Skladišti aktivne vožnje
-  finishedRides: RideDTO[] = []; // Skladišti završene vožnje
-  requests: any[] = []; // Skladišti korisničke zahteve
+  allRides: RideDTO[] = []; 
+  activeRides: RideDTO[] = []; 
+  finishedRides: RideDTO[] = []; 
+  requests: any[] = []; 
+  isLoading: boolean = false;
 
   constructor(private rideService: RideService) {}
 
@@ -34,7 +35,6 @@ export class RidesPageComponent implements OnInit {
     this.loadRides();
   }
 
-  // Učitavanje podataka za sve tabove
   loadRides(): void {
     this.rideService.getRides('ALL').subscribe({
       next: (data) => (this.allRides = data),
@@ -57,29 +57,64 @@ export class RidesPageComponent implements OnInit {
     });
   }
 
-  // Upravljanje zahtevima
   handleRequest(event: { requestId: number, isAccepted: boolean }): void {
     console.log('Handling request:', event);
+    this.isLoading = true;
   
     if (event.requestId === undefined || event.requestId === null) {
       console.error('Invalid requestId:', event.requestId);
+      this.isLoading = false; 
       return;
     }
   
     this.rideService.handleRequest(event.requestId, event.isAccepted).subscribe({
       next: () => {
-        // Filter out the handled request from the requests list
         this.requests = this.requests.filter(request => request.requestId !== event.requestId);
-        this.loadRides(); // Reload the rides data to reflect the changes
+        this.loadRides(); 
       },
-      error: (err) => console.error('Error handling request:', err),
+      error: (err) => {
+        this.isLoading = false;
+        console.error('Error handling request:', err);
+      },
+      complete: () => (this.isLoading = false),
     });
   }
   
-
   cancelRide(rideId: number): void {
-    this.rideService.cancelRide(rideId).subscribe(() => this.loadRides());
+    this.isLoading = true;  
+    
+    this.rideService.cancelRide(rideId).subscribe({
+      next: () => {
+        this.loadRides();  
+      },
+      error: (err) => {
+        console.error('Error canceling ride:', err);
+        this.isLoading = false; 
+      },
+      complete: () => {
+        this.isLoading = false;  
+      }
+    });
   }
+  
+  reportDelay(rideId: number, newDepartureTime: string): void {
+    this.isLoading = true;  // Show the spinner
+    
+    const delayRequest = { newDepartureTime };
+    this.rideService.reportDelay(rideId, delayRequest).subscribe({
+      next: () => {
+        this.loadRides();  // Reload the rides after reporting the delay
+      },
+      error: (err) => {
+        this.isLoading = false;
+        console.error('Error reporting delay:', err);
+      },
+      complete: () => {
+        this.isLoading = false;  // Hide the spinner when the request completes
+      }
+    });
+  }
+  
   
   openDelayDialog(rideId: number): void {
     const delayMinutes = prompt('Enter delay in minutes:');
@@ -89,12 +124,5 @@ export class RidesPageComponent implements OnInit {
       this.reportDelay(rideId, newDepartureTime.toISOString());
     }
   }
-  
-  reportDelay(rideId: number, newDepartureTime: string): void {
-    const delayRequest = { newDepartureTime };
-    this.rideService.reportDelay(rideId, delayRequest).subscribe(() => this.loadRides());
-  }
-  
-  
   
 }

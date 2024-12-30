@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
-import { RideDTO } from './rides-page/RideStatusDTO';
-import { RequestDTO } from './rides-page/RequestDTO';
+import { RideStatusDTO, RideDTO, RequestDTO } from './rides.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,9 +15,8 @@ export class RideService {
 
 
   createRide(rideData: any): Observable<any> {
-    const token = this.authService.getToken();  // Retrieve the token from AuthService
+    const token = this.authService.getToken();  
 
-    // Add the token to the Authorization header
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -39,7 +37,6 @@ export class RideService {
 
   getRequests(): Observable<RequestDTO[]> {
     const token = this.authService.getToken();
-    // Add the token to the Authorization header
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
@@ -48,24 +45,58 @@ export class RideService {
   }
 
   handleRequest(requestId: number, isAccepted: boolean): Observable<void> {
-    const token = this.authService.getToken();  // Retrieve the token from AuthService
+    const token = this.authService.getToken();  
   
-    // Add the token to the Authorization header
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,
       'Content-Type': 'application/json',
     });
   
-    // Pass headers in the options object correctly
     return this.http.post<void>(`${this.baseUrlRP}/requests/${requestId}/handle?isAccepted=${isAccepted}`, {}, { headers });
   }
   
   cancelRide(rideId: number): Observable<any> {
-    return this.http.post(`/api/rides/${rideId}/cancel`, {});
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.post(`${this.baseUrl}/${rideId}/cancel`, {}, { headers });
   }
   
   reportDelay(rideId: number, delayRequest: { newDepartureTime: string }): Observable<any> {
-    return this.http.post(`/api/rides/${rideId}/delay`, delayRequest);
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.post(`${this.baseUrl}/${rideId}/delay`, delayRequest, { headers });
+  }
+
+  getAvailableRides(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/filter?status=Active`);
+  }
+
+  sendRequest(rideId: number): Observable<any> {
+    return this.http.post(`${this.baseUrl}/requests/${rideId}/handle`, { isAccepted: true });
+  }
+
+  getFilteredRides(filters: any): Observable<RideStatusDTO[]> {
+    let params = new HttpParams().set('status', 'Active');
+
+    if (filters.destination) {
+      params = params.set('destination', filters.destination);
+    }
+    if (filters.minSeats) {
+      params = params.set('minSeats', filters.minSeats.toString());
+    }
+    if (filters.sortBy) {
+      params = params.set('sortBy', filters.sortBy);
+    }
+
+    return this.http.get<RideStatusDTO[]>(`${this.baseUrl}/filter-advanced`, { params });
   }
   
 

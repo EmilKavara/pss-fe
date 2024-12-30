@@ -1,17 +1,16 @@
-// rides/rides-routing.module.ts
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RideFormComponent } from './ride-form/ride-form.component';  // Importujte komponentu
+import { RideFormComponent } from './ride-form/ride-form.component';  
 
 const routes: Routes = [
   {
-    path: '',        // Putanja koja je aktivna kada korisnik poseti "/rides"
-    component: RideFormComponent,  // Komponenta koja će biti prikazana
+    path: '',        
+    component: RideFormComponent,  
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],  // Registrujte rute za ovaj modul
-  exports: [RouterModule],  // Izvozite RouterModule da bi rute bile dostupne
+  imports: [RouterModule.forChild(routes)],  
+  exports: [RouterModule], 
 })
 export class RidesRoutingModule {}

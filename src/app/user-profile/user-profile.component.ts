@@ -3,7 +3,7 @@ import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from './user.service';
-import { CommonModule } from '@angular/common';  // For ngIf
+import { CommonModule } from '@angular/common'; 
 import { FormsModule } from '@angular/forms'; 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -18,7 +18,7 @@ export class UserProfileComponent implements OnInit {
   profileForm: FormGroup;
   isLoading = false;
   errorMessage: string = '';
-  isEditing = false; // Toggle for edit mode
+  isEditing = false; 
 
   constructor(
     private authService: AuthService,
@@ -38,13 +38,12 @@ export class UserProfileComponent implements OnInit {
     this.loadUserProfile();
   }
 
-  // Load user profile data
   loadUserProfile(): void {
     this.isLoading = true;
     this.userService.getUserProfile().subscribe({
       next: (userData) => {
         this.user = userData;
-        this.user.role = this.formatRole(this.user.role); // Format the role
+        this.user.role = this.formatRole(this.user.role); 
         this.profileForm.patchValue({
           fullName: this.user.fullName,
           email: this.user.email
@@ -58,23 +57,20 @@ export class UserProfileComponent implements OnInit {
     });
   }
 
-  // Format role to capitalize the first letter
   formatRole(role: string): string {
     return role.charAt(0).toUpperCase() + role.slice(1).toLowerCase();
   }
 
-  // Enable edit mode
   startEditing(): void {
     this.isEditing = true;
   }
 
-  // Submit updated profile
   onSubmit(): void {
     if (this.profileForm.valid) {
       this.userService.updateUserProfile(this.profileForm.value).subscribe({
         next: () => {
           this.isEditing = false;
-          this.loadUserProfile(); // Reload updated profile
+          this.loadUserProfile();
           alert('Profile updated successfully!');
         },
         error: () => {
@@ -84,14 +80,12 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  // Navigate to manage vehicles if user is a driver
   manageVehicles(): void {
     if (this.user.role === 'Driver') {
       this.router.navigate(['/manage-vehicles']);
     }
   }
 
-  // Close the edit mode without saving
   cancelEditing(): void {
     this.isEditing = false;
     this.profileForm.patchValue({

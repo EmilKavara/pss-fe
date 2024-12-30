@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { VehicleService } from '../vehicle.service';
-import { CommonModule } from '@angular/common';  // For ngIf
+import { CommonModule } from '@angular/common';  
 import { FormsModule } from '@angular/forms'; 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -33,7 +33,7 @@ export class AddVehicleComponent {
       this.vehicleService.addVehicle(this.vehicleForm.value).subscribe({
         next: () => {
           alert('Vehicle added successfully!');
-          this.router.navigate(['/driver-dashboard']); // Redirect after adding vehicle
+          this.router.navigate(['/driver-dashboard']); 
         },
         error: (err) => {
           console.error('Error adding vehicle:', err);

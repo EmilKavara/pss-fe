@@ -1,4 +1,9 @@
 <h2>Create a New Ride</h2>
+
+<div *ngIf="loading" class="spinner-overlay">
+  <div class="spinner"></div>
+</div>
+
 <form (ngSubmit)="submitForm()" [formGroup]="rideForm" class="ride-form">
   <div class="form-group">
     <label for="startLocation">Start Location:</label>

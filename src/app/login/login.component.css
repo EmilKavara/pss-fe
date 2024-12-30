@@ -32,10 +32,10 @@
   }
   
   .error-message {
-    font-weight: bold;   /* Make text bold */
-    font-size: 1.2em;     /* Make the text slightly bigger */
-    color: red;           /* Optional: Change the text color to red */
-    margin-top: 10px;      /* Optional: Add space above the error message */
+    font-weight: bold;   
+    font-size: 1.2em;     
+    color: red;          
+    margin-top: 10px;     
     text-align: center;
   }
   

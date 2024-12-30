@@ -7,7 +7,7 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
-  private baseUrl = 'http://localhost:8080/auth';  // Your backend URL for authentication
+  private baseUrl = 'http://localhost:8080/auth';  
   private baseUrlVehicle = 'http://localhost:8080/vehicles';
 
   constructor(private http: HttpClient) {}
@@ -23,7 +23,7 @@ export class AuthService {
       tap((response) => {
         if (response && response.token) {
           localStorage.setItem('token', response.token);
-          localStorage.setItem('role', response.role); // Save role to localStorage
+          localStorage.setItem('role', response.role); 
         }
       })
     );
@@ -39,7 +39,6 @@ export class AuthService {
     localStorage.removeItem('expiresIn');
   }
 
-  // Method to check if the user is logged in by checking the token
   isLoggedIn(): boolean {
     return localStorage.getItem('token') !== null;
   }

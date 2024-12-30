@@ -31,28 +31,28 @@ export const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: determineRedirectRoute(), // Dinamička ruta
+    redirectTo: determineRedirectRoute(), 
     pathMatch: 'full',
   },
   {
-    path: 'profile', // Add the profile route
+    path: 'profile', 
     component: UserProfileComponent,
-    canActivate: [AuthGuard], // Optionally, you can use the AuthGuard here too
+    canActivate: [AuthGuard], 
   },
   {
-    path: 'driver-dashboard', // Add the profile route
+    path: 'driver-dashboard', 
     component: DriverDashboardComponent,
-    canActivate: [AuthGuard], // Optionally, you can use the AuthGuard here too
+    canActivate: [AuthGuard], 
   },
   {
-    path: 'passenger-dashboard', // Add the profile route
+    path: 'passenger-dashboard', 
     component: PassengerDashboardComponent,
-    canActivate: [AuthGuard], // Optionally, you can use the AuthGuard here too
+    canActivate: [AuthGuard], 
   },
   {
-    path: 'manage-vehicles', // Add the profile route
+    path: 'manage-vehicles',
     component: ManageVehiclesComponent,
-    canActivate: [AuthGuard], // Optionally, you can use the AuthGuard here too
+    canActivate: [AuthGuard], 
   },
   { 
     path: 'rides-page', 
@@ -61,20 +61,17 @@ export const routes: Routes = [
   },
 ];
 
-/**
- * Dinamičko određivanje rute na osnovu tokena i role.
- * @returns Ruta za preusmeravanje.
- */
+
 function determineRedirectRoute(): string {
   const token = localStorage.getItem('token');
-  const role = localStorage.getItem('role'); // Pretpostavljamo da je uloga sačuvana u localStorage
+  const role = localStorage.getItem('role'); 
 
   if (token) {
     if (role === 'driver') {
-      return '/rides'; // Vozač ide na rides
+      return '/rides'; 
     } else if (role === 'passenger') {
-      return '/dashboard'; // Putnik ide na dashboard
+      return '/dashboard'; 
     }
   }
-  return '/login'; // Ako korisnik nije ulogovan, ide na login
+  return '/login'; 
 }

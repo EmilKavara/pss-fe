@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VehicleService } from '../vehicle.service';
-import { CommonModule } from '@angular/common';  // For ngIf
+import { CommonModule } from '@angular/common';  
 import { FormsModule } from '@angular/forms'; 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -69,7 +69,7 @@ export class ManageVehiclesComponent implements OnInit {
     if (this.vehicleForm.valid) {
       if (this.isEditing && this.currentVehicleId) {
         this.vehicleService
-          .updateVehicle(this.currentVehicleId, this.vehicleForm.value)  // updateVehicle method should use PUT
+          .updateVehicle(this.currentVehicleId, this.vehicleForm.value)  
           .subscribe({
             next: () => {
               this.loadVehicles();

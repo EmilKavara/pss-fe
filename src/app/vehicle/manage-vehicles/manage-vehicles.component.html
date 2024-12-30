@@ -1,12 +1,10 @@
 <div class="manage-vehicles-container">
     <h2 class="page-heading">Manage Vehicles</h2>
     
-    <!-- Vehicle List Table -->
     <div *ngIf="vehicles.length > 0; else noVehicles">
       <table class="vehicles-table">
         <thead>
           <tr>
-            <th>Vehicle Name</th>
             <th>Make</th>
             <th>Model</th>
             <th>Seats</th>
@@ -15,7 +13,6 @@
         </thead>
         <tbody>
           <tr *ngFor="let vehicle of vehicles">
-            <td>{{ vehicle.name }}</td>
             <td>{{ vehicle.make }}</td>
             <td>{{ vehicle.model }}</td>
             <td>{{ vehicle.seats }}</td>
@@ -32,10 +29,8 @@
       <p>No vehicles found. Add your first vehicle!</p>
     </ng-template>
   
-    <!-- Add Vehicle Button -->
     <button class="btn btn-primary" (click)="openAddVehicleModal()">Add Vehicle</button>
   
-    <!-- Add/Edit Vehicle Modal -->
     <div *ngIf="isModalOpen" class="modal">
       <div class="modal-content">
         <h2>{{ isEditing ? 'Edit Vehicle' : 'Add Vehicle' }}</h2>

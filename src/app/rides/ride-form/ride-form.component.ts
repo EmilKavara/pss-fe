@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VehicleService } from '../../vehicle/vehicle.service';
 import { RideService } from '../ride.service';
-import { CommonModule } from '@angular/common';  // For ngIf
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
@@ -11,11 +11,12 @@ import { AuthService } from '../../auth/auth.service';
   selector: 'app-ride-form',
   templateUrl: './ride-form.component.html',
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  styleUrls: ['./ride-form.component.scss'],
+  styleUrls: ['./ride-form.component.css'],
 })
 export class RideFormComponent implements OnInit {
   rideForm: FormGroup;
   maxSeats: number | null = null;
+  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -43,14 +44,13 @@ export class RideFormComponent implements OnInit {
       next: (vehicle) => {
         console.log('Vehicle data:', vehicle);
         if (vehicle && vehicle.seats) {
-          this.maxSeats = vehicle.seats;  // Assuming the response contains the seats property
+          this.maxSeats = vehicle.seats; 
           
           if (this.maxSeats !== null) {
-            // Update the availableSeats form control with dynamic maxSeats
             this.rideForm.controls['availableSeats'].setValidators([
               Validators.required,
               Validators.min(1),
-              Validators.max(this.maxSeats), // Apply max only if maxSeats is valid
+              Validators.max(this.maxSeats), 
             ]);
             this.rideForm.controls['availableSeats'].updateValueAndValidity();
           }
@@ -65,14 +65,10 @@ export class RideFormComponent implements OnInit {
       },
     });
   }
-  
-  
 
-  /**
-   * Podnošenje forme za kreiranje vožnje.
-   */
   submitForm() {
     if (this.rideForm.valid) {
+      this.loading = true;
       this.rideService.createRide(this.rideForm.value).subscribe({
         next: (response) => {
           console.log('Ride created successfully:', response);
@@ -81,6 +77,9 @@ export class RideFormComponent implements OnInit {
         error: (error) => {
           console.error('Error creating ride:', error);
           alert('Failed to create ride. Please try again.');
+        },
+        complete: () => {
+          this.loading = false; 
         },
       });
     } else {

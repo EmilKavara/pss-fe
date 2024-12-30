@@ -22,7 +22,7 @@ export class UserService {
 
   updateUserProfile(profileData: any): Observable<any> {
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.authService.getToken()}`,  // Attach token here
+      'Authorization': `Bearer ${this.authService.getToken()}`,  
     });
 
     return this.http.put<any>(`${this.baseUrl}/profile`, profileData, { headers });

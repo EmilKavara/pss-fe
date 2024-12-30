@@ -1,1 +1,63 @@
-<p>passenger-dashboard works!</p>
+<!-- src/app/passenger-dashboard/passenger-dashboard.component.html -->
+
+<div class="dashboard-container">
+    <h1 class="dashboard-heading">Passenger Dashboard</h1>
+  
+    <!-- Filters Section -->
+    <section>
+      <h2>Filter Rides</h2>
+      <form (ngSubmit)="applyFilters()" #filterForm="ngForm">
+        <label for="destination">Destination:</label>
+        <input id="destination" [(ngModel)]="filters.destination" name="destination" />
+  
+        <label for="minSeats">Min Seats:</label>
+        <input id="minSeats" type="number" [(ngModel)]="filters.minSeats" name="minSeats" />
+  
+        <label for="sortBy">Sort By:</label>
+        <select id="sortBy" [(ngModel)]="filters.sortBy" name="sortBy">
+          <option value="">-- Select --</option>
+          <option value="availableSeats">Available Seats</option>
+          <option value="departureTime">Departure Time</option>
+        </select>
+  
+        <button type="submit">Apply Filters</button>
+      </form>
+    </section>
+  
+    <!-- Available Rides Section -->
+    <section>
+      <h2>Available Rides</h2>
+      <div *ngIf="isLoading" class="spinner"></div>
+      <table>
+        <thead>
+          <tr>
+            <th>Ride</th>
+            <th>Seats</th>
+            <th>Destination</th>
+            <th>Departure Time</th>
+            <th>Driver</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ride of availableRides">
+            <td>{{ ride.name }}</td>
+            <td>{{ ride.availableSeats }}</td>
+            <td>{{ ride.destination }}</td>
+            <td>{{ ride.departureTime | date: 'short' }}</td>
+            <td>
+              <strong>{{ ride.driverName }}</strong><br />
+            </td>
+            <td><button (click)="sendRideRequest(ride.id)">Request Ride</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  
+    <!-- Profile and Logout -->
+    <footer>
+      <button (click)="goToProfile()">Profile</button>
+      <button (click)="logout()">Logout</button>
+    </footer>
+  </div>
+  

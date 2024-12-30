@@ -1,13 +1,11 @@
 <div>
   <h2>Sign Up</h2>
 
-  <!-- Show success message if signup is successful -->
   <div *ngIf="signupSuccess">
     <p>Signup successful! Your username is: <strong>{{ generatedUsername }}</strong></p>
     <button (click)="goToLogin()">Proceed to Login</button>
   </div>
 
-  <!-- Show form only if signup is not successful -->
   <form *ngIf="!signupSuccess" [formGroup]="signupForm" (ngSubmit)="onSignup()">
     <label for="fullName">Full Name:</label>
     <input id="fullName" formControlName="fullName" />
