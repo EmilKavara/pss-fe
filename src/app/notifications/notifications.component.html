@@ -1,0 +1,15 @@
+<div class="notifications-icon" (click)="toggleNotificationsDropdown()">
+  <i class="fas fa-bell"></i> <!-- Unicode bell icon -->
+  <span *ngIf="unreadCount > 0" class="badge">{{ unreadCount }}</span>
+</div>
+
+<div *ngIf="showNotificationsDropdown" class="notifications-dropdown">
+  <h3>Notifications</h3>
+  <ul>
+    <li *ngFor="let notification of notifications" [ngClass]="{'unread': notification.status === 'unread'}">
+      <span>{{ notification.message }}</span>
+      <small>{{ notification.createdAt | date: 'short' }}</small>
+    </li>
+  </ul>
+  <button (click)="markAllAsRead()">Mark All as Read</button>
+</div>

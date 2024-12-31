@@ -64,6 +64,16 @@ export class RideService {
 
     return this.http.post(`${this.baseUrl}/${rideId}/cancel`, {}, { headers });
   }
+
+  cancelRidePassenger(rideId: number, passengerId: number): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.post(`${this.baseUrl}/${rideId}/cancel-passenger`, {passengerId}, { headers });
+  }
   
   reportDelay(rideId: number, delayRequest: { newDepartureTime: string }): Observable<any> {
     const token = this.authService.getToken();
@@ -80,11 +90,18 @@ export class RideService {
   }
 
   sendRequest(rideId: number): Observable<any> {
-    return this.http.post(`${this.baseUrl}/requests/${rideId}/handle`, { isAccepted: true });
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+  
+    return this.http.post(`${this.baseUrlRP}/requests/${rideId}/send`, {}, { headers });
   }
+  
 
   getFilteredRides(filters: any): Observable<RideStatusDTO[]> {
-    let params = new HttpParams().set('status', 'Active');
+    let params = new HttpParams().set('status', 'ACTIVE');
 
     if (filters.destination) {
       params = params.set('destination', filters.destination);
@@ -97,6 +114,16 @@ export class RideService {
     }
 
     return this.http.get<RideStatusDTO[]>(`${this.baseUrl}/filter-advanced`, { params });
+  }
+  
+  getBookedRides(): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    });
+  
+    return this.http.get<any>(`${this.baseUrlRP}/booked-rides`, { headers });
   }
   
 

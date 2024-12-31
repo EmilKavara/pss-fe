@@ -13,6 +13,7 @@ export interface RequestDTO {
     departureTime: string; 
     status: string;
     availableSeats: number;
+    driverName: string;
   }
 
   export interface RideStatusDTO {

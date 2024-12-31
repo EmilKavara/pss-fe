@@ -1,63 +1,102 @@
-<!-- src/app/passenger-dashboard/passenger-dashboard.component.html -->
-
 <div class="dashboard-container">
-    <h1 class="dashboard-heading">Passenger Dashboard</h1>
-  
-    <!-- Filters Section -->
-    <section>
-      <h2>Filter Rides</h2>
-      <form (ngSubmit)="applyFilters()" #filterForm="ngForm">
-        <label for="destination">Destination:</label>
-        <input id="destination" [(ngModel)]="filters.destination" name="destination" />
-  
-        <label for="minSeats">Min Seats:</label>
-        <input id="minSeats" type="number" [(ngModel)]="filters.minSeats" name="minSeats" />
-  
-        <label for="sortBy">Sort By:</label>
-        <select id="sortBy" [(ngModel)]="filters.sortBy" name="sortBy">
-          <option value="">-- Select --</option>
-          <option value="availableSeats">Available Seats</option>
-          <option value="departureTime">Departure Time</option>
-        </select>
-  
-        <button type="submit">Apply Filters</button>
-      </form>
-    </section>
-  
-    <!-- Available Rides Section -->
-    <section>
-      <h2>Available Rides</h2>
-      <div *ngIf="isLoading" class="spinner"></div>
-      <table>
-        <thead>
-          <tr>
-            <th>Ride</th>
-            <th>Seats</th>
-            <th>Destination</th>
-            <th>Departure Time</th>
-            <th>Driver</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let ride of availableRides">
-            <td>{{ ride.name }}</td>
-            <td>{{ ride.availableSeats }}</td>
-            <td>{{ ride.destination }}</td>
-            <td>{{ ride.departureTime | date: 'short' }}</td>
-            <td>
-              <strong>{{ ride.driverName }}</strong><br />
-            </td>
-            <td><button (click)="sendRideRequest(ride.id)">Request Ride</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-  
-    <!-- Profile and Logout -->
-    <footer>
-      <button (click)="goToProfile()">Profile</button>
-      <button (click)="logout()">Logout</button>
-    </footer>
+  <div class="notifications-wrapper">
+    <app-notifications [notifications]="notifications"></app-notifications>
   </div>
+  <h1 class="dashboard-heading">Passenger Dashboard</h1>
+
+  <section>
+    <h2>Filter Rides</h2>
+    <form (ngSubmit)="applyFilters()" #filterForm="ngForm">
+      <label for="destination">Destination:</label>
+      <input 
+        id="destination" 
+        [(ngModel)]="filters.destination" 
+        name="destination" 
+        list="destinationOptions" 
+        (input)="filterDestinationOptions()"
+      />
+      <datalist id="destinationOptions">
+        <option *ngFor="let option of filteredDestinations" [value]="option"></option>
+      </datalist>
+
+      <label for="minSeats">Min Seats:</label>
+      <input id="minSeats" type="number" [(ngModel)]="filters.minSeats" name="minSeats" min="1" />
+
+      <label for="sortBy">Sort By:</label>
+      <select id="sortBy" [(ngModel)]="filters.sortBy" name="sortBy">
+        <option value="">-- Select --</option>
+        <option value="availableSeats">Available Seats</option>
+        <option value="departureTime">Departure Time</option>
+      </select>
+
+      <button type="submit">Apply Filters</button>
+    </form>
+  </section>
+
+  <section>
+    <h2>Available Rides</h2>
+    <div *ngIf="isLoading" class="spinner"></div>
+    <table>
+      <thead>
+        <tr>
+          <th>Start Location</th>
+          <th>Destination</th>
+          <th>Departure Time</th>
+          <th>Seats Available</th>
+          <th>Driver</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ride of availableRides">
+          <td>{{ ride.origin }}</td>
+          <td>{{ ride.destination }}</td>
+          <td>{{ ride.departureTime | date: 'short' }}</td>
+          <td>{{ ride.availableSeats }}</td>
+          <td>
+            <strong>{{ ride.driverName }}</strong>
+          </td>
+          <td><button (click)="sendRideRequest(ride.id)">Request Ride</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section *ngIf="bookedRides.length > 0">
+    <h2>Your Booked Rides</h2>
+    <div *ngIf="isLoading" class="spinner"></div>
+    <table>
+      <thead>
+        <tr>
+          <th>Start Location</th>
+          <th>Destination</th>
+          <th>Departure Time</th>
+          <th>Status</th>
+          <th>Driver</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ride of bookedRides">
+          <td>{{ ride.origin }}</td>
+          <td>{{ ride.destination }}</td>
+          <td>{{ ride.departureTime | date: 'short' }}</td>
+          <td>{{ ride.status }}</td>
+          <td>
+            <strong>{{ ride.driverName }}</strong>
+          </td>
+          <td>
+            <button *ngIf="ride.status === 'PENDING'" (click)="cancelRide(ride.id)">Cancel Ride</button>
+            <button *ngIf="ride.status === 'ACCEPTED'" (click)="cancelRide(ride.id)">Cancel Ride</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
   
+
+  <footer>
+    <button (click)="goToProfile()">Profile</button>
+    <button (click)="logout()">Logout</button>
+  </footer>
+</div>
