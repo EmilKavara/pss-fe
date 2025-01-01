@@ -1,29 +1,22 @@
 <div class="dashboard">
-    <header class="dashboard-header">
-      <h1>Driver Dashboard</h1>
+  <header class="dashboard-header">
+    <h1>Driver Dashboard</h1>
+    <div class="header-actions">
+      <app-notifications [notifications]="notifications"></app-notifications>
       <button class="logout-btn" (click)="logout()">Logout</button>
-    </header>
-  
-    <main class="dashboard-main">
-      <section class="quick-info">
-        <h2>Welcome, {{ driver.fullName }}</h2>
-        <p>Total Rides: {{ driver.rideHistory?.length }}</p>
-      </section>
-  
-      <section class="actions">
-        <button (click)="navigateTo('profile')" class="action-btn">User Profile</button>
-        <button (click)="navigateTo('rides')" class="action-btn">Start New Ride</button>
-        <button (click)="navigateTo('rides-page')" class="action-btn">Ride History</button>
-      </section>
-  
-      <section class="notifications" *ngIf="notifications && notifications.length">
-        <h3>Notifications</h3>
-        <ul>
-          <li *ngFor="let notification of notifications">
-            {{ notification.message }} <span>({{ notification.createdAt | date:'short' }})</span>
-          </li>
-        </ul>
-      </section>
-    </main>
-  </div>
-  
+    </div>
+  </header>
+
+  <main class="dashboard-main">
+    <section class="quick-info">
+      <h2>Welcome, {{ driver.fullName }}</h2>
+      <p>Total Rides: {{ driver.rideHistory?.length }}</p>
+    </section>
+
+    <section class="actions">
+      <button (click)="navigateTo('profile')" class="action-btn">User Profile</button>
+      <button (click)="navigateTo('rides')" class="action-btn">Start New Ride</button>
+      <button (click)="navigateTo('rides-page')" class="action-btn">Ride History</button>
+    </section>
+  </main>
+</div>

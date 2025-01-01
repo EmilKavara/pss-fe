@@ -5,11 +5,16 @@
 
 <div *ngIf="showNotificationsDropdown" class="notifications-dropdown">
   <h3>Notifications</h3>
-  <ul>
+  <ul *ngIf="notifications.length > 0; else noNotifications">
     <li *ngFor="let notification of notifications" [ngClass]="{'unread': notification.status === 'unread'}">
       <span>{{ notification.message }}</span>
       <small>{{ notification.createdAt | date: 'short' }}</small>
     </li>
   </ul>
-  <button (click)="markAllAsRead()">Mark All as Read</button>
+  <button *ngIf="notifications.length > 0" (click)="markAllAsRead()">Mark All as Read</button>
+
+  <!-- Template za prikaz kada nema notifikacija -->
+  <ng-template #noNotifications>
+    <p class="no-notifications-msg">No notifications available.</p>
+  </ng-template>
 </div>
