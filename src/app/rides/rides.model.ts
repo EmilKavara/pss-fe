@@ -24,4 +24,11 @@ export interface RequestDTO {
     departureTime: string;
     driverName: string;
   }
+
+  export interface PlannedRide {
+    time: string;       // Pretpostavljam da je ovo string sa vremenom vožnje
+    route: string;      // Ruta vožnje
+    // Dodaj ostale potrebne propertije prema strukturi podataka koji dolaze sa servera
+  }
+  
   

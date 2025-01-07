@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   styleUrls: ['./signup.component.css'],
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit, OnDestroy{
   signupForm: FormGroup;
   signupSuccess = false;
   errorMessage = '';
@@ -21,7 +21,8 @@ export class SignupComponent {
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2
   ) {
     this.signupForm = this.fb.group({
       fullName: ['', Validators.required],
@@ -56,12 +57,23 @@ export class SignupComponent {
 
   generateUsername(fullName: string): string {
     return fullName
+      .trim() 
       .toLowerCase()
-      .replace(/\s+/g, '_')
-      .replace(/[^a-z0-9_]/g, '');
+      .replace(/\s+/g, '.') 
+      .replace(/[^a-z0-9.]/g, ''); 
   }
+  
 
   goToLogin() {
     this.router.navigate(['/login']); 
   }
+
+  ngOnInit(): void {
+    this.renderer.addClass(document.body, 'signup-body');
+  }
+
+  ngOnDestroy(): void {
+    this.renderer.removeClass(document.body, 'signup-body');
+  }
+
 }

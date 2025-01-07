@@ -2,21 +2,56 @@
   <header class="dashboard-header">
     <h1>Driver Dashboard</h1>
     <div class="header-actions">
-      <app-notifications [notifications]="notifications"></app-notifications>
+      <app-notifications [notifications]="notifications" class="driver-notifications"></app-notifications>
       <button class="logout-btn" (click)="logout()">Logout</button>
     </div>
   </header>
 
   <main class="dashboard-main">
+    <!-- Quick Info Section -->
     <section class="quick-info">
       <h2>Welcome, {{ driver.fullName }}</h2>
       <p>Total Rides: {{ driver.rideHistory?.length }}</p>
+      
+      <h3>Planned rides:</h3>
+      <ul>
+        <li *ngFor="let ride of plannedRides">
+          {{ ride.startTime | date: 'short' }} - {{ ride.route }}
+        </li>
+      </ul>
     </section>
-
-    <section class="actions">
-      <button (click)="navigateTo('profile')" class="action-btn">User Profile</button>
-      <button (click)="navigateTo('rides')" class="action-btn">Start New Ride</button>
-      <button (click)="navigateTo('rides-page')" class="action-btn">Ride History</button>
+    
+    <section class="stats">
+      <h3>Statistika vožnji</h3>
+      <div class="chart">
+        <canvas baseChart
+                [datasets]="barChartData.datasets"
+                [labels]="barChartLabels"
+                [options]="barChartOptions" 
+                [type]="'bar'">
+        </canvas>
+      </div>
     </section>
+    
+    <!-- Driver Goals Section -->
+    <section class="driver-goals">
+      <h3>Driver Goals</h3>
+      <ul>
+        <li>
+          <strong>First Goal(Rides)</strong>: {{driver.rideHistory?.length }} / 50
+        </li>
+      </ul>
+    </section>
+    
+    <section class="vehicle-info">
+      <h3>Vehicle Data</h3>
+      <ul>
+        <li><strong>Make:</strong> {{ vehicle.make }}</li>
+        <li><strong>Model:</strong> {{ vehicle.model }}</li>
+        <li><strong>Available Seats:</strong> {{ vehicle.seats }}</li>
+        <li><strong>Vehicle Added at:</strong> {{ vehicle.createdAt | date: 'shortDate' }}</li>
+      </ul>
+    </section>
+    
   </main>
 </div>

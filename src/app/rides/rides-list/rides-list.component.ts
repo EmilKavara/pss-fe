@@ -12,7 +12,8 @@ import { CommonModule } from '@angular/common';
 })
 export class RidesListComponent {
   @Input() rides: any[] = [];
-  @Output() onCancelRide = new EventEmitter<number>();
+  @Input() showActions: boolean = false;
+  @Output() onCancelRide = new EventEmitter<number>(); 
   @Output() onReportDelay = new EventEmitter<number>();
   displayedColumns: string[] = ['origin', 'destination', 'departureTime', 'status', 'actions'];
 

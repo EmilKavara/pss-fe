@@ -1,4 +1,5 @@
-<div *ngIf="user" class="user-profile-container">
+<div class="background-image"></div>
+  <div *ngIf="user" class="user-profile-container">
     <h2 class="profile-heading">User Profile</h2>
     <div class="profile-details">
       <p><strong>Full Name:</strong> {{ user.fullName }}</p>
@@ -55,8 +56,8 @@
   
         <label for="role">Role:</label>
         <select id="role" formControlName="role">
-          <option value="Passenger">Passenger</option>
-          <option value="Driver">Driver</option>
+          <option value="PASSENGER">Passenger</option>
+          <option value="DRIVER">Driver</option>
         </select>
         <div *ngIf="profileForm.get('role')?.invalid && profileForm.get('role')?.touched">
           <small class="error">Select a valid role</small>
@@ -69,4 +70,3 @@
       </form>
     </div>
   </div>
-  

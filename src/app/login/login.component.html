@@ -1,21 +1,21 @@
 <div class="login-container">
-    <h2>Login</h2>
-    <form (ngSubmit)="login()">
-      <div>
-        <label for="username">Username</label>
-        <input type="text" id="username" [(ngModel)]="username" name="username" required />
-      </div>
-  
-      <div>
-        <label for="password">Password</label>
-        <input type="password" id="password" [(ngModel)]="password" name="password" required />
-      </div>
-  
-      <button type="submit">Login</button>
-  
-      <div *ngIf="errorMessage" class="error-message">
-        {{ errorMessage }}
-      </div>
-    </form>
-  </div>
-  
+  <h2>Login</h2>
+  <form (ngSubmit)="login()">
+    <div>
+      <label for="username">Username</label> 
+      <input type="text" id="username" [(ngModel)]="username" name="username" required="">
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input type="password" id="password" [(ngModel)]="password" name="password" required="">
+    </div>
+
+    <button type="submit">Login</button>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+  </form>
+  <div class="footer-text">© 2025 Passenger Sharing System</div>
+</div>

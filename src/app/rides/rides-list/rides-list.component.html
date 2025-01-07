@@ -23,8 +23,24 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let ride">
-        <button *ngIf="ride.status === 'ACTIVE'" mat-button color="warn" class="color-warn" (click)="onCancel(ride.id)">Cancel</button>
-        <button *ngIf="ride.status === 'ACTIVE'" mat-button color="accent" class="color-accent" (click)="onDelay(ride.id)">Delay</button>
+        <button
+          *ngIf="showActions && ride.status === 'ACTIVE'"
+          mat-button
+          color="warn"
+          class="color-warn"
+          (click)="onCancel(ride.id)"
+        >
+          Cancel
+        </button>
+        <button
+          *ngIf="showActions && ride.status === 'ACTIVE'"
+          mat-button
+          color="accent"
+          class="color-accent"
+          (click)="onDelay(ride.id)"
+        >
+          Delay
+        </button>
       </td>
     </ng-container>
 

@@ -1,1 +1,95 @@
-/* You can add global styles to this file, and also import other style files */
+.driver-notifications .notifications-dropdown {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+  
+  .driver-notifications .notifications-dropdown h3 {
+    background-color: #222 !important;
+    color: #fff !important;
+  }
+  
+  .driver-notifications .notifications-dropdown li {
+    color: #fff !important;
+  }
+  
+  .driver-notifications .notifications-dropdown li.unread {
+    background-color: #333 !important;
+  }
+  
+  .driver-notifications .notifications-dropdown button {
+    background-color: #444 !important;
+    color: #fff !important;
+  }
+  
+  .driver-notifications .no-notifications-msg {
+    color: #fff !important;
+    background-color: #222 !important;
+  }
+
+  .driver-notifications .notifications-dropdown {
+    position: absolute;
+    top: 114px !important;
+    right: 140px !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    max-height: 400px;
+    overflow-y: auto;
+    border-radius: 4px;
+    z-index: 1100; 
+  }
+
+body.login-body {
+  background-image: url('/assets/images/pozadina.png');
+  background-size: cover; 
+  background-position: center;
+  background-attachment: fixed;
+  height: 100vh; 
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+}
+
+body.login-body::before {
+  content: "";
+  position: absolute;
+  background-image: url('/assets/images/pozadina.png');
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: inherit;
+  background-size: inherit; 
+  background-position: inherit;
+  background-attachment: inherit;
+  filter: blur(2.2px); 
+  z-index: -1; 
+}
+
+body.signup-body {
+  background-image: url('/assets/images/pozadina.png'); 
+  background-size: cover; 
+  background-position: center;
+  background-attachment: fixed; 
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body.signup-body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/assets/images/pozadina.png'); 
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  filter: blur(2.2px); 
+  z-index: -1; 
+}

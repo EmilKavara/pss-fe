@@ -82,7 +82,7 @@ export class RideService {
       'Content-Type': 'application/json',
     });
 
-    return this.http.post(`${this.baseUrl}/${rideId}/delay`, delayRequest, { headers });
+    return this.http.post<any>(`${this.baseUrl}/${rideId}/delay`, delayRequest, { headers });
   }
 
   getAvailableRides(): Observable<any[]> {

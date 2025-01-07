@@ -13,7 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css']
 })
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent implements OnInit{
   user: any = {};
   profileForm: FormGroup;
   isLoading = false;
@@ -24,12 +24,18 @@ export class UserProfileComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private fb: FormBuilder,
-    private router: Router
+    private router: Router,
   ) {
     this.profileForm = this.fb.group({
       fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       role: ['', Validators.required], 
+    });
+
+    this.profileForm.get('role')?.valueChanges.subscribe((value: string) => {
+      if (value) {
+        this.profileForm.get('role')?.setValue(value.toUpperCase(), { emitEvent: false });
+      }
     });
     
   }
@@ -46,7 +52,8 @@ export class UserProfileComponent implements OnInit {
         this.user.role = this.formatRole(this.user.role); 
         this.profileForm.patchValue({
           fullName: this.user.fullName,
-          email: this.user.email
+          email: this.user.email,
+          role: this.user.role
         });
         this.isLoading = false;
       },

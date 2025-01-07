@@ -8,6 +8,7 @@ import { RidesListComponent } from '../rides-list/rides-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { RideDTO } from '../rides.model';
+import { toZonedTime, fromZonedTime } from 'date-fns-tz';
 
 @Component({
   selector: 'app-rides-page',
@@ -28,6 +29,8 @@ export class RidesPageComponent implements OnInit {
   finishedRides: RideDTO[] = []; 
   requests: any[] = []; 
   isLoading: boolean = false;
+  activeTabIndex: number = 0;
+  private timeZone = 'Europe/Sarajevo';
 
   constructor(private rideService: RideService) {}
 
@@ -85,7 +88,19 @@ export class RidesPageComponent implements OnInit {
     
     this.rideService.cancelRide(rideId).subscribe({
       next: () => {
-        this.loadRides();  
+        const rideToCancel = this.activeRides.find(ride => ride.id === rideId);
+      
+      if (rideToCancel) {
+        this.finishedRides.push({
+          ...rideToCancel,
+          status: 'Cancelled',
+          id: rideToCancel.id! 
+        });
+      }
+
+      this.activeRides = this.activeRides.filter(ride => ride.id !== rideId);
+
+      this.isLoading = false;
       },
       error: (err) => {
         console.error('Error canceling ride:', err);
@@ -98,31 +113,45 @@ export class RidesPageComponent implements OnInit {
   }
   
   reportDelay(rideId: number, newDepartureTime: string): void {
-    this.isLoading = true;  // Show the spinner
-    
+    this.isLoading = true;
+
     const delayRequest = { newDepartureTime };
     this.rideService.reportDelay(rideId, delayRequest).subscribe({
       next: () => {
-        this.loadRides();  // Reload the rides after reporting the delay
+        const ride = this.activeRides.find(r => r.id === rideId);
+        if (ride) {
+          const localTime = fromZonedTime(new Date(newDepartureTime), this.timeZone); 
+          ride.departureTime = localTime.toISOString(); 
+          console.log('Updated departure time:', localTime);
+        }
+        this.isLoading = false;
       },
       error: (err) => {
         this.isLoading = false;
         console.error('Error reporting delay:', err);
       },
       complete: () => {
-        this.isLoading = false;  // Hide the spinner when the request completes
+        this.isLoading = false;
       }
     });
   }
   
-  
   openDelayDialog(rideId: number): void {
     const delayMinutes = prompt('Enter delay in minutes:');
     if (delayMinutes) {
-      const newDepartureTime = new Date();
-      newDepartureTime.setMinutes(newDepartureTime.getMinutes() + parseInt(delayMinutes, 10));
-      this.reportDelay(rideId, newDepartureTime.toISOString());
+      const currentLocalTime = new Date();
+      const newDepartureTime = new Date(currentLocalTime);
+      newDepartureTime.setMinutes(currentLocalTime.getMinutes() + parseInt(delayMinutes, 10));
+
+      const newUtcDepartureTime = toZonedTime(newDepartureTime, this.timeZone); 
+
+      this.reportDelay(rideId, newUtcDepartureTime.toISOString());
     }
+  }
+  
+
+  onTabChange(event: any) {
+    this.activeTabIndex = event.index; 
   }
   
 }

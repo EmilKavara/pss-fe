@@ -50,14 +50,41 @@
 }
 
 .dashboard-main {
-  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 20px;
   padding: 20px;
   background-color: #f9f9f9;
 }
 
 .quick-info {
-  margin-bottom: 20px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.chart {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.driver-goals,
+.vehicle-book {
+  background: #fff;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
 
 .actions {
   display: flex;
@@ -107,13 +134,13 @@
   max-height: 400px;
   overflow-y: auto;
   border-radius: 4px;
-  background-color: #000; /* Crna pozadina */
-  color: #fff; /* Bijeli tekst */
+  background-color: #000; 
+  color: #fff; 
   z-index: 1100;
 }
 
 .notifications-dropdown h3 {
-  background-color: #222; /* Tamnija pozadina za naslov */
+  background-color: #222; 
   color: #fff;
 }
 

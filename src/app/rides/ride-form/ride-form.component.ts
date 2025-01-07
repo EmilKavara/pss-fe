@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; 
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../auth/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-ride-form',
@@ -22,10 +23,11 @@ export class RideFormComponent implements OnInit {
     private fb: FormBuilder,
     private vehicleService: VehicleService,
     private rideService: RideService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.rideForm = this.fb.group({
-      startLocation: ['', Validators.required],
+      origin: ['', Validators.required],
       destination: ['', Validators.required],
       departureTime: ['', Validators.required],
       availableSeats: [
@@ -68,11 +70,18 @@ export class RideFormComponent implements OnInit {
 
   submitForm() {
     if (this.rideForm.valid) {
+      const rideData = {
+        ...this.rideForm.value,
+        status: "ACTIVE",
+        driverName: "", 
+        id: null, 
+      };
       this.loading = true;
-      this.rideService.createRide(this.rideForm.value).subscribe({
+      this.rideService.createRide(rideData).subscribe({
         next: (response) => {
           console.log('Ride created successfully:', response);
           alert('Ride created successfully!');
+          this.router.navigate(['/rides-page']);
         },
         error: (error) => {
           console.error('Error creating ride:', error);

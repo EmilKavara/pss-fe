@@ -6,19 +6,20 @@
     <div class="spinner"></div>
   </div>
 
-  <mat-tab-group>
+  <mat-tab-group (selectedTabChange)="onTabChange($event)">
     <mat-tab label="All">
-      <app-rides-list [rides]="allRides"></app-rides-list>
+      <app-rides-list [rides]="allRides" [showActions]="false"></app-rides-list>
     </mat-tab>
     <mat-tab label="Active">
       <app-rides-list
         [rides]="activeRides"
+        [showActions]="true"
         (onCancelRide)="cancelRide($event)"
         (onReportDelay)="openDelayDialog($event)"
       ></app-rides-list>
     </mat-tab>
     <mat-tab label="Finished">
-      <app-rides-list [rides]="finishedRides"></app-rides-list>
+      <app-rides-list [rides]="finishedRides" [showActions]="false"></app-rides-list>
     </mat-tab>
     <mat-tab label="Requests">
       <app-requests-list
