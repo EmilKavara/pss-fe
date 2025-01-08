@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter,  OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -11,9 +11,13 @@ import { RequestDTO } from '../rides.model';
   styleUrls: ['./requests-list.component.css'],
   imports: [CommonModule, MatTableModule]
 })
-export class RequestsListComponent {
+export class RequestsListComponent implements OnInit, OnDestroy {
   @Input() requests: RequestDTO[] = [];
   @Output() onHandleRequest = new EventEmitter<{ requestId: number, isAccepted: boolean }>();
+
+  constructor(
+      private renderer: Renderer2
+    ){}
 
   displayedColumns: string[] = ['user', 'status', 'actions'];
 
@@ -23,5 +27,13 @@ export class RequestsListComponent {
 
   rejectRequest(requestId: number) {
     this.onHandleRequest.emit({ requestId, isAccepted: false });
+  }
+
+  ngOnInit(): void {
+    this.renderer.addClass(document.body, 'request-list-body');
+  }
+
+  ngOnDestroy(): void {
+    this.renderer.removeClass(document.body, 'request-list-body');
   }
 }

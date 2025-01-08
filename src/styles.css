@@ -93,3 +93,42 @@ body.signup-body::before {
   filter: blur(2.2px); 
   z-index: -1; 
 }
+
+body.manage-vehicles-body {
+  background-image: url('/assets/images/pozadina.png'); 
+  background-size: cover;  
+  background-position: center;
+  background-attachment: fixed; 
+  background-repeat: no-repeat; 
+  margin: 0;
+  padding: 0;
+}
+
+body.add-vehicle-body {
+  background-image: url('/assets/images/real.jpg'); 
+  background-size: cover; 
+  background-position: center; 
+  background-repeat: no-repeat; 
+  background-attachment: fixed; 
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body.request-list-body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(to bottom right, #b8d5f3, #b6cae5);
+  color: #333;
+}
+
+body.ride-form-body {
+  background-image: url('/assets/images/autolok.jpg');
+  background-size: cover; 
+  background-position: center center; 
+  background-attachment: fixed; 
+  background-repeat: no-repeat;
+  height: 90vh; 
+  margin: 0;
+}

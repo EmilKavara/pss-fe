@@ -8,21 +8,32 @@
   </header>
 
   <main class="dashboard-main">
-    <!-- Quick Info Section -->
     <section class="quick-info">
       <h2>Welcome, {{ driver.fullName }}</h2>
       <p>Total Rides: {{ driver.rideHistory?.length }}</p>
       
-      <h3>Planned rides:</h3>
+      <h3>Planned Rides:</h3>
       <ul>
         <li *ngFor="let ride of plannedRides">
-          {{ ride.startTime | date: 'short' }} - {{ ride.route }}
+          <div>
+            <strong>Departure:</strong> {{ ride.departureTime | date: 'short' }}
+          </div>
+          <div>
+            <strong>Route:</strong> {{ ride.origin }} → {{ ride.destination }}
+          </div>
+          <div>
+            <strong>Seats Available:</strong> {{ ride.availableSeats }}
+          </div>
+          <div>
+            <strong>Status:</strong> {{ ride.status }}
+          </div>
         </li>
       </ul>
     </section>
     
+    
     <section class="stats">
-      <h3>Statistika vožnji</h3>
+      <h3>Rides statistics</h3>
       <div class="chart">
         <canvas baseChart
                 [datasets]="barChartData.datasets"
@@ -33,7 +44,6 @@
       </div>
     </section>
     
-    <!-- Driver Goals Section -->
     <section class="driver-goals">
       <h3>Driver Goals</h3>
       <ul>

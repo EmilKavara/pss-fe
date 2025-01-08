@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VehicleService } from '../vehicle.service';
 import { CommonModule } from '@angular/common';  
 import { FormsModule } from '@angular/forms'; 
 import { ReactiveFormsModule } from '@angular/forms';
+import { VehicleDTO } from '../vehicle.model';
 
 @Component({
   selector: 'app-manage-vehicles',
@@ -11,14 +12,14 @@ import { ReactiveFormsModule } from '@angular/forms';
   templateUrl: './manage-vehicles.component.html',
   styleUrls: ['./manage-vehicles.component.css'],
 })
-export class ManageVehiclesComponent implements OnInit {
-  vehicles: any[] = [];
+export class ManageVehiclesComponent implements OnInit, OnDestroy {
+  vehicles: VehicleDTO[] = [];
   vehicleForm: FormGroup;
   isModalOpen = false;
   isEditing = false;
   currentVehicleId: number | null = null;
 
-  constructor(private fb: FormBuilder, private vehicleService: VehicleService) {
+  constructor(private fb: FormBuilder, private vehicleService: VehicleService, private renderer: Renderer2) {
     this.vehicleForm = this.fb.group({
       make: ['', Validators.required],
       model: ['', Validators.required],
@@ -28,15 +29,27 @@ export class ManageVehiclesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.renderer.addClass(document.body, 'manage-vehicles-body');
     this.loadVehicles();
   }
 
   loadVehicles() {
-    this.vehicleService.getVehicles().subscribe({
-      next: (data) => (this.vehicles = data),
+    this.vehicleService.getVehiclesByDriver().subscribe({
+      next: (data) => {
+        console.log(data);  
+        this.vehicles = data;
+        console.log(this.vehicles);
+        if (this.vehicles && this.vehicles.length > 0) {
+          console.log(this.vehicles[0].make);  
+        } else {
+          console.log('No vehicles available');
+        }
+        
+      },
       error: (err) => console.error('Failed to load vehicles', err),
     });
   }
+  
 
   openAddVehicleModal() {
     this.isEditing = false;
@@ -96,5 +109,9 @@ export class ManageVehiclesComponent implements OnInit {
     this.isModalOpen = false;
     this.isEditing = false;
     this.currentVehicleId = null;
+  }
+
+  ngOnDestroy(): void {
+    this.renderer.removeClass(document.body, 'manage-vehicles-body');
   }
 }

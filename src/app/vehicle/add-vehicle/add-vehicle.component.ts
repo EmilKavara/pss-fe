@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { VehicleService } from '../vehicle.service';
@@ -12,13 +12,14 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   styleUrls: ['./add-vehicle.component.css'],
 })
-export class AddVehicleComponent {
+export class AddVehicleComponent implements OnInit, OnDestroy {
   vehicleForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private vehicleService: VehicleService,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2
   ) {
     this.vehicleForm = this.fb.group({
       make: ['', Validators.required],
@@ -42,4 +43,13 @@ export class AddVehicleComponent {
       });
     }
   }
+
+  ngOnInit(): void {
+    this.renderer.addClass(document.body, 'add-vehicle-body');
+  }
+
+  ngOnDestroy(): void {
+    this.renderer.removeClass(document.body, 'add-vehicle-body');
+  }
+
 }

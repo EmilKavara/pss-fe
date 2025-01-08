@@ -23,7 +23,7 @@ import { toZonedTime, fromZonedTime } from 'date-fns-tz';
   templateUrl: './rides-page.component.html',
   styleUrls: ['./rides-page.component.css']
 })
-export class RidesPageComponent implements OnInit {
+export class RidesPageComponent implements OnInit{
   allRides: RideDTO[] = []; 
   activeRides: RideDTO[] = []; 
   finishedRides: RideDTO[] = []; 

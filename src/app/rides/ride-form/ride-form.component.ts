@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { VehicleService } from '../../vehicle/vehicle.service';
 import { RideService } from '../ride.service';
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   styleUrls: ['./ride-form.component.css'],
 })
-export class RideFormComponent implements OnInit {
+export class RideFormComponent implements OnInit, OnDestroy {
   rideForm: FormGroup;
   maxSeats: number | null = null;
   loading: boolean = false;
@@ -24,7 +24,8 @@ export class RideFormComponent implements OnInit {
     private vehicleService: VehicleService,
     private rideService: RideService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private renderer: Renderer2
   ) {
     this.rideForm = this.fb.group({
       origin: ['', Validators.required],
@@ -38,6 +39,7 @@ export class RideFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.renderer.addClass(document.body, 'ride-form-body');
     this.loadMaxSeats();
   }
 
@@ -94,6 +96,10 @@ export class RideFormComponent implements OnInit {
     } else {
       alert('Please correct the form errors before submitting.');
     }
+  }
+
+  ngOnDestroy(): void {
+    this.renderer.removeClass(document.body, 'ride-form-body');
   }
   
 }
