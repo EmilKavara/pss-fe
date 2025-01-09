@@ -56,7 +56,15 @@
           <td>
             <strong>{{ ride.driverName }}</strong>
           </td>
-          <td><button (click)="sendRideRequest(ride.id)">Request Ride</button></td>
+          <td>
+            <button 
+              *ngIf="!requestedRides.has(ride.id)" 
+              (click)="sendRideRequest(ride.id)"
+            >
+              Request Ride
+            </button>
+          </td>
+          
         </tr>
       </tbody>
     </table>

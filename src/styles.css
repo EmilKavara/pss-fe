@@ -132,3 +132,13 @@ body.ride-form-body {
   height: 90vh; 
   margin: 0;
 }
+
+body.passenger-dashboard-body {
+  background-image: url('/assets/images/pozadina.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 97vh;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}

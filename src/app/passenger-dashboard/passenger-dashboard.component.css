@@ -4,7 +4,7 @@
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background-color: #ffffffcb; 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -48,7 +48,7 @@ form button {
 }
 
 form button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; 
 }
 
 table {
@@ -105,14 +105,14 @@ footer button {
   margin: 0 10px;
   padding: 10px 15px;
   border: none;
-  background-color: #007bff;
+  background-color: #007bff; 
   color: white;
   cursor: pointer;
   border-radius: 5px;
 }
 
 footer button:hover {
-  background-color: #0056b3;
+  background-color: #0056b3; 
 }
 
 .notifications-wrapper {

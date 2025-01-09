@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { RideService } from '../rides/ride.service';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -15,10 +15,11 @@ import { RideDTO } from '../rides/rides.model';
   templateUrl: './passenger-dashboard.component.html',
   styleUrls: ['./passenger-dashboard.component.css']
 })
-export class PassengerDashboardComponent implements OnInit {
+export class PassengerDashboardComponent implements OnInit, OnDestroy {
   notifications: any[] = [];
   availableRides: any[] = [];
   isLoading: boolean = false;
+  requestedRides: Set<number> = new Set<number>();
   filters = {
     destination: '',
     minSeats: 0,
@@ -34,10 +35,12 @@ export class PassengerDashboardComponent implements OnInit {
     private rideService: RideService,
     private router: Router,
     private http: HttpClient, 
-    private authService: AuthService
+    private authService: AuthService,
+    private renderer: Renderer2
   ) {}
 
   ngOnInit(): void {
+    this.renderer.addClass(document.body, 'passenger-dashboard-body');
     this.fetchUserProfile();
     this.fetchAvailableRides();
     this.loadBookedRides();
@@ -103,10 +106,14 @@ export class PassengerDashboardComponent implements OnInit {
 
   sendRideRequest(rideId: number): void {
     this.rideService.sendRequest(rideId).subscribe({
-      next: () => alert('Request sent successfully'),
+      next: () => {
+        alert('Request sent successfully');
+        this.requestedRides.add(rideId); 
+      },
       error: () => alert('Failed to send request'),
     });
   }
+  
 
   logout(): void {
     this.router.navigate(['/login']);
@@ -151,6 +158,10 @@ export class PassengerDashboardComponent implements OnInit {
       alert('Minimum number of seats should be at least 1');
     }
     console.log(this.filters); 
+  }
+
+  ngOnDestroy(): void {
+    this.renderer.removeClass(document.body, 'passenger-dashboard-body');
   }
   
   
