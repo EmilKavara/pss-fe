@@ -2,7 +2,14 @@
   <div class="notifications-wrapper">
     <app-notifications [notifications]="notifications" class="passenger-notifications"></app-notifications>
   </div>
-  <h1 class="dashboard-heading">Passenger Dashboard</h1>
+  <div class="dashboard-header">
+    <h1 class="dashboard-heading">Passenger Dashboard</h1>
+    <div class="dashboard-actions">
+      <button (click)="goToProfile()">Profile</button>
+      <button (click)="logout()">Logout</button>
+    </div>
+  </div>
+  
 
   <section>
     <h2>Filter Rides</h2>
@@ -101,10 +108,4 @@
       </tbody>
     </table>
   </section>
-  
-
-  <footer>
-    <button (click)="goToProfile()">Profile</button>
-    <button (click)="logout()">Logout</button>
-  </footer>
 </div>

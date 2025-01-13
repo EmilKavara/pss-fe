@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpParams  } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
@@ -16,7 +16,7 @@ import { Chart, registerables } from 'chart.js';
   imports: [CommonModule, FormsModule, NotificationsComponent,BaseChartDirective],
   styleUrls: ['./driver-dashboard.component.css'],
 })
-export class DriverDashboardComponent implements OnInit {
+export class DriverDashboardComponent implements OnInit, OnDestroy {
   driver: any = {};
   vehicle: any;
   notifications: any[] = [];
@@ -26,22 +26,23 @@ export class DriverDashboardComponent implements OnInit {
   public barChartOptions: ChartOptions = {
     responsive: true,
   };
-  public barChartLabels: string[] = ['Week 1', 'Week 2', 'Week 3', 'Week 4'];
+  public barChartLabels: string[] = ['October', 'November', 'December', 'January'];
   public barChartData: ChartData<'bar'> = {
     labels: this.barChartLabels,
     datasets: [
       {
         data: [0, 0, 0, 0], 
-        label: 'Rides per Week',
+        label: 'Rides per Month',
         backgroundColor: '#42A5F5',
         hoverBackgroundColor: '#1E88E5'
       }
     ]
   };
 
-  constructor(private router: Router, private http: HttpClient, private authService: AuthService) {Chart.register(...registerables);}
+  constructor(private router: Router, private http: HttpClient, private authService: AuthService, private renderer: Renderer2) {Chart.register(...registerables);}
 
   ngOnInit(): void {
+    this.renderer.addClass(document.body, 'driver-dashboard-body');
     this.getDriverProfile();
   }
 
@@ -136,17 +137,39 @@ const endDate = nextWeek.toISOString().split('T')[0];
   }
 
   updateRideStatistics(rideStats: any[]): void {
-    const timePeriods = rideStats.map(stat => stat.timePeriod);
-    const weeklyRides = rideStats.map(stat => stat.rideCount);
+    console.log('Raw rideStats data:', rideStats);
   
-    this.barChartLabels = timePeriods; 
-    this.barChartData.datasets[0].data = weeklyRides; 
+    const months = ['OCTOBER', 'NOVEMBER', 'DECEMBER', 'JANUARY']; 
     
-    if (this.barChartData && this.barChartData.datasets) {
-      this.barChartData.datasets[0].data = weeklyRides;
-    }
+    const rideCounts = new Map<string, number>();
+    months.forEach(month => {
+      rideCounts.set(month, 0);  
+    });
+  
+    rideStats.forEach(stat => {
+      console.log('Processing stat:', stat);
+      const monthLabel = stat.timePeriod.toUpperCase(); 
+      if (months.includes(monthLabel)) {
+        const currentCount = rideCounts.get(monthLabel) || 0;
+        rideCounts.set(monthLabel, currentCount + stat.rideCount);
+      }
+    });
+  
+    console.log('Updated ride counts:', rideCounts);
+  
+    this.barChartLabels = months; 
+    this.barChartData.datasets[0].data = months.map(month => rideCounts.get(month) || 0);
+  
+    console.log('Final chart data:', this.barChartData.datasets[0].data);  
   }
   
   
+  
+  
+
+  ngOnDestroy(): void {
+    this.renderer.removeClass(document.body, 'driver-dashboard-body');
+  }
+    
   
 }

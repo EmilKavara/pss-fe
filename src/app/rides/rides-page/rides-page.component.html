@@ -1,5 +1,8 @@
 <div class="rides-container">
-  <h1 class="page-heading">Rides Management</h1>
+  <div class="header-container">
+    <h1 class="page-heading">Rides Management</h1>
+    <button class="driver-dashboard-button" (click)="goToDriverDashboard()">Driver Dashboard</button>
+  </div>
   <p class="page-subheading">Manage and review all your rides effortlessly</p>
 
   <div *ngIf="isLoading" class="spinner-overlay">

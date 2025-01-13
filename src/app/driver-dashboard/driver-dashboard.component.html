@@ -2,10 +2,13 @@
   <header class="dashboard-header">
     <h1>Driver Dashboard</h1>
     <div class="header-actions">
+      <button class="nav-btn" (click)="navigateTo('rides')">Create Ride</button>
+      <button class="nav-btn" (click)="navigateTo('rides-page')">Rides</button>
+      <button class="nav-btn" (click)="navigateTo('profile')">User Profile</button>
       <app-notifications [notifications]="notifications" class="driver-notifications"></app-notifications>
       <button class="logout-btn" (click)="logout()">Logout</button>
     </div>
-  </header>
+  </header>  
 
   <main class="dashboard-main">
     <section class="quick-info">

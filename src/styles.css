@@ -142,3 +142,8 @@ body.passenger-dashboard-body {
   margin: 0;
   font-family: Arial, sans-serif;
 }
+
+body.driver-dashboard-body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}

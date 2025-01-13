@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { RideService } from '../ride.service';
+import { Router } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -32,7 +33,7 @@ export class RidesPageComponent implements OnInit{
   activeTabIndex: number = 0;
   private timeZone = 'Europe/Sarajevo';
 
-  constructor(private rideService: RideService) {}
+  constructor(private rideService: RideService, private router: Router) {}
 
   ngOnInit(): void {
     this.loadRides();
@@ -153,5 +154,10 @@ export class RidesPageComponent implements OnInit{
   onTabChange(event: any) {
     this.activeTabIndex = event.index; 
   }
+
+  goToDriverDashboard() {
+    this.router.navigate(['/driver-dashboard']);
+  }
+  
   
 }

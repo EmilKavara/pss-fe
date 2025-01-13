@@ -8,12 +8,34 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.dashboard-heading {
-  text-align: center;
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: 20px;
+}
+
+.dashboard-heading {
+  margin: 0;
   font-size: 24px;
   color: #333;
+  text-align: left;
 }
+
+.dashboard-actions button {
+  margin: 0 10px;
+  padding: 10px 15px;
+  border: none;
+  background-color: #007bff; 
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.dashboard-actions button:hover {
+  background-color: #0056b3;
+}
+
 
 section {
   margin-bottom: 20px;
@@ -38,7 +60,7 @@ form select {
   border-radius: 4px;
 }
 
-form button {
+form button, button {
   padding: 5px 10px;
   background-color: #007bff;
   color: white;
@@ -94,25 +116,6 @@ table tr:hover {
 
 @keyframes spin {
   to { transform: rotate(360deg); }
-}
-
-footer {
-  text-align: center;
-  margin-top: 20px;
-}
-
-footer button {
-  margin: 0 10px;
-  padding: 10px 15px;
-  border: none;
-  background-color: #007bff; 
-  color: white;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-footer button:hover {
-  background-color: #0056b3; 
 }
 
 .notifications-wrapper {
