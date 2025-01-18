@@ -85,7 +85,7 @@ Design:
 | Name                         | Description                                                                     | Image                                                       |
 |------------------------------|---------------------------------------------------------------------------------|-------------------------------------------------------------|
 | **Driver Dashboard**         | Displays driver's ride statistics, planned rides, vehicle info and driver goals | ![Driver Dashboard](screenshots/driver-dashboard.png)       |
-| **Passenger Dashboard**      | Displays available rides.                                                       | ![Passenger Dashboard](screenshots/passenger-dashboard.png) |
+| **Passenger Dashboard**      | Displays available rides.                                                       | ![Passenger Dashboard](screenshots/book-ride.png) |
 | **Register**                 | Registration page.                                                              | ![Register](screenshots/register.png)                       |
 | **Login**                    | Login page.                                                                     | ![Login](screenshots/login.png)                             |
 | **Create Ride**              | Displays create ride form.                                                      | ![Home Screen](screenshots/create_ride.png)                 |
