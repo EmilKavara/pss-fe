@@ -79,18 +79,18 @@ Design:
 3. Start the application:
     ```bash
     ng serve
-   
+
 ## Screenshots
 
-| Name                         | Description                                                                     | Image                                                       |
-|------------------------------|---------------------------------------------------------------------------------|-------------------------------------------------------------|
-| **Driver Dashboard**         | Displays driver's ride statistics, planned rides, vehicle info and driver goals | ![Driver Dashboard](screenshots/driver-dashboard.png)       |
-| **Passenger Dashboard**      | Displays available rides.                                                       | ![Passenger Dashboard](screenshots/book-ride.png) |
-| **Register**                 | Registration page.                                                              | ![Register](screenshots/register.png)                       |
-| **Login**                    | Login page.                                                                     | ![Login](screenshots/login.png)                             |
-| **Create Ride**              | Displays create ride form.                                                      | ![Home Screen](screenshots/create_ride.png)                 |
-| **Cancel or Delay Ride**     | List of all active rides that can be delayed or cancelled.                      | ![Search Rides](screenshots/cancel-ride.png)                |
-| **Handle Ride Request**      | Displays all requests and their information.                                    | ![Create Rides](screenshots/handle-request.png)             |
-| **User Profile**             | Displays all users information.                                                 | ![Admin Panel](screenshots/user-profile.png)                |
-| **Email Delay Notification** | Email that is sent when there is delay for ride.                                | ![Admin Panel](screenshots/delay.png)                  |
+| Name                         | Description                                                                     | Image                                                 |
+|------------------------------|---------------------------------------------------------------------------------|-------------------------------------------------------|
+| **Driver Dashboard**         | Displays driver's ride statistics, planned rides, vehicle info and driver goals | ![Driver Dashboard](screenshots/driver-dashboard.png) |
+| **Passenger Dashboard**      | Displays available rides.                                                       | ![Passenger Dashboard](screenshots/book-ride.png)     |
+| **Register**                 | Registration page.                                                              | ![Register](screenshots/register.png)                 |
+| **Login**                    | Login page.                                                                     | ![Login](screenshots/login.png)                       |
+| **Create Ride**              | Displays create ride form.                                                      | ![Create Ride](screenshots/create_ride.png)           |
+| **Cancel or Delay Ride**     | List of all active rides that can be delayed or cancelled.                      | ![Cancel Ride](screenshots/cancel-ride.png)           |
+| **Handle Ride Request**      | Displays all requests and their information.                                    | ![Handle Request](screenshots/handle-request.png)     |
+| **User Profile**             | Displays all users information.                                                 | ![User Profile](screenshots/user-profile.png)         |
+| **Email Delay Notification** | Email that is sent when there is delay for ride.                                | ![Delay Mail](screenshots/delay.png)                  |
 
