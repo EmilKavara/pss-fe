@@ -1,59 +1,96 @@
-# PssFrontend
+# Passenger Sharing System (PSS)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.0.6.
+Passenger Sharing System (PSS) is an application designed to connect passengers and drivers within academic communities, such as universities and colleges, enabling easy organization of shared rides. This is a personal project created by a junior programmer to meet the needs for economical, flexible, and environmentally friendly transportation.
 
-## Development server
+---
 
-To start a local development server, run:
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Key Features](#key-features)
+- [Technologies](#technologies)
+- [Installation and Setup](#installation-and-setup)
+- [Screenshots](#screenshots)
+- [Contributions](#contributions)
+- [License](#license)
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Project Overview
 
-## Code scaffolding
+PSS enables:
+- **Passengers**: Search for available rides, reserve seats, and communicate with drivers.
+- **Drivers**: Post rides, manage reservations, and review feedback.
+- **Administrators**: Manage users, monitor activities, and maintain security standards.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+The goal is to create an eco-friendly, economical, and easy-to-use platform tailored for the academic community.
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Key Features
 
-```bash
-ng generate --help
-```
+- **User Registration and Login**: Simple access through username and password.
+- **Profile Creation and Editing**: Add basic information, preferences, and reviews.
+- **Ride Search and Reservation**: Filter by location, time, and driver ratings.
+- **Ride Management**: Create, edit, and cancel rides.
+- **Ratings and Feedback**: Leave reviews after each ride.
+- **Notifications**: Alerts about ride and reservation statuses.
 
-## Building
+---
 
-To build the project run:
+## Technologies
 
-```bash
-ng build
-```
+Frontend:
+- **Angular** (JavaScript)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Backend:
+- **Java Spring Framework**
 
-## Running unit tests
+Database:
+- **PostgreSQL**
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+API:
+- **RESTful**
 
-```bash
-ng test
-```
+Design:
+- Responsive design suitable for web browsers and desktop devices.
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## Installation and Setup
 
-```bash
-ng e2e
-```
+### Backend
+1. Clone the `pss-be` repository:
+   ```bash
+   git clone https://github.com/EmilKavara/pss-be.git
+2. Install dependencies:
+    ```bash
+   ./mvnw install
+3. Start the server:
+    ```bash
+   ./mvnw spring-boot:run
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+### Frontend
+1. Clone the `pss-fe` repository:
+    ```bash
+   git clone https://github.com/EmilKavara/pss-be.git
+2. Install dependencies:
+    ```bash
+    npm install
+3. Start the application:
+    ```bash
+    ng serve
+   
+## Screenshots
 
-## Additional Resources
+| Name                         | Description                                                                     | Image                                                       |
+|------------------------------|---------------------------------------------------------------------------------|-------------------------------------------------------------|
+| **Driver Dashboard**         | Displays driver's ride statistics, planned rides, vehicle info and driver goals | ![Driver Dashboard](screenshots/driver-dashboard.png)       |
+| **Passenger Dashboard**      | Displays available rides.                                                       | ![Passenger Dashboard](screenshots/passenger-dashboard.png) |
+| **Register**                 | Registration page.                                                              | ![Register](screenshots/register.png)                       |
+| **Login**                    | Login page.                                                                     | ![Login](screenshots/login.png)                             |
+| **Create Ride**              | Displays create ride form.                                                      | ![Home Screen](screenshots/create_ride.png)                 |
+| **Cancel or Delay Ride**     | List of all active rides that can be delayed or cancelled.                      | ![Search Rides](screenshots/cancel-ride.png)                |
+| **Handle Ride Request**      | Displays all requests and their information.                                    | ![Create Rides](screenshots/handle-request.png)             |
+| **User Profile**             | Displays all users information.                                                 | ![Admin Panel](screenshots/user-profile.png)                |
+| **Email Delay Notification** | Email that is sent when there is delay for ride.                                | ![Admin Panel](screenshots/delay.png)                  |
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
